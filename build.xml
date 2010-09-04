@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Phelan" default="build">
+    <description>
+        http://www.alternateillusion.com/munchkin-articles
+    </description>
+
+<!-- set default properties -->
+    <property name="vendor.dir"      location="${basedir}/vendor"/>
+    <property name="pear.config"     location="${basedir}/.pearrc"/>
+    <property name="test.dir"        location="${basedir}/tests"/>
+    <property name="test.config.dir" location="${test.dir}/config"/>
+    <property file="${basedir}/build.properties"/>
+
+<!-- import ant-helpers -->
+    <import file="${basedir}/ant-helpers/shell.xml" />
+    <import file="${basedir}/ant-helpers/pear.xml" />
+    <import file="${basedir}/ant-helpers/phpunit.xml" />
+
+<!-- Remove all generated content -->
+    <target name="distclean" description="Remove all generated content">
+        <delete dir="${vendor.dir}"/>
+        <delete file="${pear.config}"/>
+    </target>
+
+<!-- Clean and prepare the first build -->
+    <target name="init" depends="distclean, generate-pear-config">
+        <pear-install channel="pear.meza.hu" package="PHPUnitHelper"
+        state="beta"/>
+        <pear-install channel="pear.phpunit.de" package="phpunit"/>
+        <pear-install channel="pear.phpunit.de" package="phpcpd"/>
+        <pear-install channel="pear.phpunit.de" package="phploc"/>
+        <pear-install channel="pear.php.net" package="PHP_CodeSniffer"/>
+    </target>
+
+<!-- Generate the pear config file -->
+    <target name="generate-pear-config" depends="distclean">
+        <pear-generate-config peardir="${vendor.dir}"/>
+    </target>
+
+<!-- Check if the pear config file is present and fail if not -->
+    <target name="check-pear">
+        <fail message="Run ant init">
+            <condition>
+                <not>
+                    <available file="${pear.config}"/>
+                </not>
+            </condition>
+        </fail>
+    </target>
+
+<!-- Build the project -->
+    <target name="build" description="Build the project"
+        depends="check-pear"/>
+
+</project>
