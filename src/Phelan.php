@@ -71,10 +71,9 @@ class Phelan
      */
     private function _createLocator(SimpleXMLElement $locatorXML)
     {
-        $locator = new PhelanLocator(
-            $locatorXML->getName(),
-            (string) $locatorXML
-        );
+        $name    = $locatorXML->getName();
+        $value   = (string) $locatorXML;
+        $locator = new PhelanLocator($name, $value);
         return $locator;
 
     }//end _createLocator()
