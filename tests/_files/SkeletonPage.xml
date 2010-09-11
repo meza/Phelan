@@ -1,11 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="SelenaPage.xsd">
-    <Elements>
-        <WebElement name="aNamedDiv">
-            <Locators>
-                <id>aNamedDivsID</id>
-            </Locators>
-        </WebElement>
-    </Elements>
+xmlns:fo="http://www.w3.org/1999/XSL/Format"
+xsi:noNamespaceSchemaLocation="http://github.com/meza/Selena/raw/master/skeleton/config/uixmls/SelenaPage.xsd">
+	<Elements>
+		<Group name="group1">
+			<WebElement name="aNamedDiv">
+				<Locators>
+					<id>aNamedDivsID</id>
+				</Locators>
+			</WebElement>
+		</Group>
+		<Group name="group2">
+			<WebElement name="xpathDiv">
+				<Locators>
+					<xpath>//td[text()='somne text']</xpath>
+				</Locators>
+			</WebElement>
+		</Group>
+	</Elements>
 </Page>
