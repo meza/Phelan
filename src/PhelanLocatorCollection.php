@@ -78,13 +78,18 @@ class PhelanLocatorCollection
      */
     public function getFirst()
     {
+        $result = null;
+
         if (0 === $this->count()) {
-            return null;
+            return $result;
         }
 
         foreach ($this->_locators as $locator) {
-            return $locator;
+            $result = $locator;
+            break;
         }
+
+        return $result;
 
     }//end getFirst()
 

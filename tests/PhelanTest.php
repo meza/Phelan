@@ -167,6 +167,16 @@ class PhelanTest extends MockAmendingTestCaseBase
              'locatorType' => 'unexisting locator',
              'expected'    => false,
             ),
+            array(
+             'elementName' => 'emptyElement',
+             'locatorType' => Phelan::LOCATOR_ID,
+             'expected'    => false,
+            ),
+            array(
+             'elementName' => 'emptyElement',
+             'locatorType' => null,
+             'expected'    => false,
+            ),
         );
 
     }//end testProvider()

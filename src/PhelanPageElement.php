@@ -96,16 +96,8 @@ class PhelanPageElement
      */
     public function getLocator($type=null)
     {
-        if (0 === $this->_locators->count()) {
-            return null;
-        }
-
         if (null === $type) {
             return $this->_locators->getFirst();
-        }
-
-        if (false === $this->_locators->hasLocator($type)) {
-            return null;
         }
 
         return $this->_locators->get($type);
