@@ -12,7 +12,7 @@ function __bootstrap()
     set_include_path($path.PATH_SEPARATOR.get_include_path());
 
     require_once 'PHPUnit/Framework.php';
-    require_once 'PHPUnitHelper/src/MockAmendingTestCaseBase.php';
+    require_once 'PHPUnitHelper/MockAmendingTestCaseBase.php';
     spl_autoload_register(array(new Autoloader, 'loadClass'));
 
 }
