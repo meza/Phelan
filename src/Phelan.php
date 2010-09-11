@@ -39,6 +39,31 @@
 class Phelan
 {
 
+    const LOCATOR_ID        = 'id';
+    const LOCATOR_XPATH     = 'xpath';
+    const LOCATOR_CLASSNAME = 'class';
+    const LOCATOR_LINK      = 'link';
+    const LOCATOR_NAME      = 'name';
+    const LOCATOR_CSS       = 'css';
+    const LOCATOR_TEXT      = 'text';
+
+    /**
+     * @var PhelanLocatorFactory That will handle the locator creation
+     */
+    private $_locatorFactory;
+
+
+    /**
+     * Constructs the object
+     *
+     * @return Phelan
+     */
+    public function __construct()
+    {
+        $this->_locatorFactory = new PhelanLocatorFactory();
+
+    }//end __construct()
+
 
     /**
      * Parses the given xml to a PhelanPage
@@ -71,9 +96,9 @@ class Phelan
      */
     private function _createLocator(SimpleXMLElement $locatorXML)
     {
-        $name    = $locatorXML->getName();
+        $name    = (string) $locatorXML->getName();
         $value   = (string) $locatorXML;
-        $locator = new PhelanLocator($name, $value);
+        $locator = $this->_locatorFactory->createLocator($name, $value);
         return $locator;
 
     }//end _createLocator()
@@ -89,7 +114,7 @@ class Phelan
     private function _createElement(SimpleXMLElement $elementXML)
     {
         $atts     = $elementXML->attributes();
-        $element  = new PhelanPageElement($atts['name']);
+        $element  = new PhelanPageElement((string) $atts['name']);
         $locators = $elementXML->xpath('Locators/*');
         foreach ($locators as $locator) {
             $element->addLocator($this->_createLocator($locator));

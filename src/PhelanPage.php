@@ -20,7 +20,7 @@
  */
 
 /**
- * The PhelanPage class is responsible for ...
+ * The PhelanPage denotes the Page element in the config
  *
  * PHP Version: PHP 5
  *
@@ -43,7 +43,7 @@ class PhelanPage
 
     private $_path = '';
 
-    public $elements = array();
+    public $elements = null;
 
 
     /**
@@ -56,8 +56,9 @@ class PhelanPage
      */
     public function __construct($url='', $path='')
     {
-        $this->_url  = $url;
-        $this->_path = $path;
+        $this->_url     = $url;
+        $this->_path    = $path;
+        $this->elements = new PhelanPageElementCollection();
 
     }//end __construct()
 
@@ -71,9 +72,30 @@ class PhelanPage
      */
     public function addElement(PhelanPageElement $element)
     {
-        $this->elements[] = $element;
+        $this->elements->add($element);
 
     }//end addElement()
+
+
+    /**
+     * Fetches the needed locator
+     *
+     * @param string $elementId   The id of the element
+     * @param string $locatorType The type of the locator
+     *
+     * @return PhelanLocator
+     */
+    public function getLocator($elementId, $locatorType=null)
+    {
+        $element = $this->elements->get($elementId);
+        if (false === $element) {
+            return null;
+        }
+
+        $locator = $element->getLocator($locatorType);
+        return $locator;
+
+    }//end getLocator()
 
 
 }//end class

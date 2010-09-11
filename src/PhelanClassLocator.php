@@ -36,34 +36,8 @@
  * of this license document, but changing it is not allowed.
  * @link     http://www.meza.hu
  */
-class PhelanLocator
+class PhelanClassLocator extends PhelanLocator
 {
-
-    /**
-     * @var String the type of the locator
-     */
-    private $_type;
-
-    /**
-     * @var String the value of the locator
-     */
-    private $_value;
-
-
-    /**
-     * Constructs the object
-     *
-     * @param String $type  The type of the locator
-     * @param String $value The value of the locator
-     *
-     * @return PhelanLocator
-     */
-    public function __construct($type, $value)
-    {
-        $this->_type  = $type;
-        $this->_value = $value;
-
-    }//end __construct()
 
 
     /**
@@ -73,33 +47,9 @@ class PhelanLocator
      */
     public function getStringFormat()
     {
-        return $this->getType().'='.$this->getValue();
+        return 'className='.$this->getValue();
 
     }//end getStringFormat()
-
-
-    /**
-     * Retrieves the type of the Locator.
-     *
-     * @return String
-     */
-    public function getType()
-    {
-        return $this->_type;
-
-    }//end getType()
-
-
-    /**
-     * Retrieves the value of the Locator.
-     *
-     * @return String
-     */
-    public function getValue()
-    {
-        return $this->_value;
-
-    }//end getValue()
 
 
 }//end class

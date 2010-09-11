@@ -45,6 +45,11 @@ class PhelanTest extends MockAmendingTestCaseBase
      */
     private $_xml;
 
+    /**
+     * @var Phelan instance
+     */
+    protected $object;
+
 
     /**
      * Sets up the fixtures
@@ -53,8 +58,9 @@ class PhelanTest extends MockAmendingTestCaseBase
      */
     protected function setUp()
     {
-        $this->_xml  = dirname(__FILE__).DIRECTORY_SEPARATOR;
-        $this->_xml .= '_files'.DIRECTORY_SEPARATOR.'SkeletonPage.xml';
+        $this->_xml   = dirname(__FILE__).DIRECTORY_SEPARATOR;
+        $this->_xml  .= '_files'.DIRECTORY_SEPARATOR.'SkeletonPage.xml';
+        $this->object = new Phelan();
 
     }//end setUp()
 
@@ -64,61 +70,145 @@ class PhelanTest extends MockAmendingTestCaseBase
      *
      * @test
      *
+     * @group endtoend
+     *
      * @return PhelanPage
      */
     public function testEndToEnd()
     {
-        $expected = new PhelanPage('http://example.com', 'examplepath');
-        $elementa = new PhelanPageElement('aNamedDiv');
+        $producedParseResult = $this->object->getPage($this->_xml);
 
-        $loc = new PhelanLocator('id', 'aNamedDivsID');
-
-        $elementa->locators = array($loc);
-
-        $elementb = new PhelanPageElement('xpathDiv');
-
-        $loc = new PhelanLocator('xpath', "//td[text()='somne text']");
-
-        $elementb->locators = array($loc);
-
-        $elementc = new PhelanPageElement('allDiv');
-
-        $loc1 = new PhelanLocator('xpath', '//div#all');
-        $loc2 = new PhelanLocator('id', 'all');
-        $loc3 = new PhelanLocator('class', 'allclass');
-        $loc4 = new PhelanLocator('link', 'A link value');
-        $loc5 = new PhelanLocator('name', 'aFormName');
-        $loc6 = new PhelanLocator('css', 'div .class');
-        $loc7 = new PhelanLocator('unexisting', 'some gibberish');
-
-        $elementc->locators = array(
-                               $loc1,
-                               $loc2,
-                               $loc3,
-                               $loc4,
-                               $loc5,
-                               $loc6,
-                               $loc7,
-                              );
-
-        $expected->elements = array(
-                               $elementa,
-                               $elementb,
-                               $elementc,
-                              );
-
-        $object = new Phelan();
-        $actual = $object->getPage($this->_xml);
-
-        $this->assertEquals(
-            $expected,
-            $actual,
+        $this->assertType(
+            'PhelanPage',
+            $producedParseResult,
             'The parsed page is not whart it should be'
         );
 
-        return $expected;
+        return $producedParseResult;
 
     }//end testEndToEnd()
+
+
+    /**
+     * Provides input data to the getLocator's test
+     *
+     * @return array
+     */
+    public function testProvider()
+    {
+        return array(
+            array(
+             'elementName' => 'unexistingelement',
+             'locatorType' => null,
+             'expected'    => false,
+            ),
+            array(
+             'elementName' => 'aNamedDiv',
+             'locatorType' => null,
+             'expected'    => 'id=aNamedDivsID',
+            ),
+            array(
+             'elementName' => 'aNamedDiv',
+             'locatorType' => Phelan::LOCATOR_ID,
+             'expected'    => 'id=aNamedDivsID',
+            ),
+            array(
+             'elementName' => 'aNamedDiv',
+             'locatorType' => 'idx',
+             'expected'    => false,
+            ),
+            array(
+             'elementName' => 'xpathDiv',
+             'locatorType' => null,
+             'expected'    => 'xpath=//td[text()=\'some text\']',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => null,
+             'expected'    => 'xpath=//div#all',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => Phelan::LOCATOR_XPATH,
+             'expected'    => 'xpath=//div#all',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => Phelan::LOCATOR_ID,
+             'expected'    => 'id=all',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => Phelan::LOCATOR_CLASSNAME,
+             'expected'    => 'className=allclass',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => Phelan::LOCATOR_LINK,
+             'expected'    => 'link=A link value',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => Phelan::LOCATOR_NAME,
+             'expected'    => 'name=aFormName',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => Phelan::LOCATOR_CSS,
+             'expected'    => 'css=div .class',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => 'unexisting',
+             'expected'    => 'text=some gibberish',
+            ),
+            array(
+             'elementName' => 'allDiv',
+             'locatorType' => 'unexisting locator',
+             'expected'    => false,
+            ),
+        );
+
+    }//end testProvider()
+
+
+    /**
+     * Test the getLocator method.
+     *
+     * @param String $elementId   The id of the element to fetch
+     * @param String $locatorType The type of the locator to find
+     * @param String $expected    The expected locator
+     *
+     * @test
+     *
+     * @dataProvider testProvider()
+     *
+     * @group endtoend
+     *
+     * @return void
+     */
+    public function testGetLocator(
+        $elementId,
+        $locatorType,
+        $expected
+    ) {
+
+        $locator = $this->testEndToEnd()->getLocator(
+            $elementId,
+            $locatorType
+        );
+
+        $actual = null;
+        if (null !== $locator) {
+            $actual = $locator->getStringFormat();
+        }
+        $this->assertEquals(
+            $expected,
+            $actual,
+            'The received locator does not match the expected value'
+        );
+
+    }//end testGetLocator()
 
 
 }//end class

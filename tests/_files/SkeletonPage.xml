@@ -14,7 +14,7 @@ url="http://example.com" path="examplepath">
 		<Group name="group2">
 			<WebElement name="xpathDiv">
 				<Locators>
-					<xpath>//td[text()='somne text']</xpath>
+					<xpath>//td[text()='some text']</xpath>
 				</Locators>
 			</WebElement>
             <WebElement name="allDiv">
