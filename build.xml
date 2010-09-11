@@ -17,8 +17,13 @@
 
     <target name="prepare" depends="clean">
         <mkdir dir="${output.dir}"/>
+        <mkdir dir="${output.dir}${file.separator}unittest"/>
+        <mkdir dir="${output.dir}${file.separator}unittest${file.separator}coverage"/>
     </target>
 
+    <target name="phpunit" depends="prepare">
+        <phpunit test="${test.dir}"/>
+    </target>
 
 <!-- Clean and prepare the first build -->
     <target name="init">
@@ -30,6 +35,7 @@
     </target>
 
 <!-- Build the project -->
-    <target name="build" description="Build the project" depends="prepare"/>
+    <target name="build" description="Build the project"
+            depends="prepare"/>
 
 </project>
