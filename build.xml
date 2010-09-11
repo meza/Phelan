@@ -2,14 +2,26 @@
 <project name="Phelan" default="build">
 
 <!-- set default properties -->
+    <property file="${basedir}${file.separator}build.properties"/>
     <property name="output.dir"      location="${basedir}${file.separator}build"/>
+    <property name="package.dir"     location="${output.dir}${file.separator}package"/>
     <property name="test.dir"        location="${basedir}${file.separator}tests"/>
     <property name="test.config.dir" location="${test.dir}${file.separator}config"/>
     <property file="${basedir}${file.separator}build.properties"/>
+    <property name="pirum.repo.dir" location="/opt/pearserver"/>
+    
+    <property file="${basedir}${file.separator}version.properties"/>
+    <property file="${basedir}${file.separator}build.number"/>
+    <buildnumber/>
+    <tstamp prefix="build">
+        <format property="date" pattern="yyyy-MM-dd"/>
+        <format property="time" pattern="HH:mm:ss" />
+    </tstamp>
 
 <!-- import ant-helpers -->
     <import file="${basedir}${file.separator}ant-helpers${file.separator}shell.xml" />
     <import file="${basedir}${file.separator}ant-helpers${file.separator}phpunit.xml" />
+    <import file="${basedir}${file.separator}ant-helpers${file.separator}pear.xml" />
 
     <target name="clean">
         <delete dir="${output.dir}"/>
@@ -25,8 +37,42 @@
         <phpunit test="${test.dir}"/>
     </target>
 
+    <target name="package" depends="build">
+        <copy todir="${package.dir}" preservelastmodified="true" overwrite="true">
+            <fileset dir="${basedir}${file.separator}src">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        <copy todir="${package.dir}" preservelastmodified="true"
+        overwrite="true">
+        <fileset dir="${basedir}">
+            <include name="package.xml"/>
+        </fileset>
+        <filterchain>
+            <expandproperties/>
+        </filterchain>
+        </copy>
+        <pear-package packagexml="${package.dir}/package.xml"/>
+        <move file="${basedir}${file.separator}${ant.project.name}-${version.major}.${version.minor}.${build.number}.tgz"
+        todir="${package.dir}"/>
+    </target>
+
+    <target name="deploy" depends="package">
+        <property name="package.tar" location="${package.dir}${file.separator}${ant.project.name}-${version.major}.${version.minor}.${build.number}.tgz"/>
+        <shell executable="pirum">
+            <arg value="add"/>
+            <arg value="${pirum.repo.dir}"/>
+            <arg value="${package.tar}"/>
+        </shell>
+    </target>
+
 <!-- Clean and prepare the first build -->
-    <target name="init">
+    <target name="init" depends="clean">
+        <propertyfile file="version.properties">
+            <entry key="version.major" default="0" type="int"/>
+            <entry key="version.minor" default="0" type="int"/>
+            <entry key="version.state" default="alpha" type="string"/>
+        </propertyfile>
         <pear>
             <arg line="config-set auto_discover 1"/>
         </pear>
