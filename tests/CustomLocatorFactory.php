@@ -1,8 +1,8 @@
 <?php
 /**
- * PhelanClassLocator.php
+ * CustomLocatorFactory.php
  *
- * Holds the PhelanClassLocator class
+ * Holds the CustomLocatorFactory class
  *
  * PHP Version: PHP 5
  *
@@ -20,7 +20,7 @@
  */
 
 /**
- * The PhelanClassLocator handles class locators
+ * The CustomLocatorFactory class is responsible for ...
  *
  * PHP Version: PHP 5
  *
@@ -36,20 +36,29 @@
  * of this license document, but changing it is not allowed.
  * @link     http://www.meza.hu
  */
-class PhelanClassLocator extends PhelanLocator
+class CustomLocatorFactory implements PhelanLocatorFactory
 {
 
 
     /**
-     * Return the string fformat of the locator.
-     * 
-     * @return string
+     * Creates custom locators.
+     *
+     * @param String $nodeName The parsed node's name
+     * @param String $value    The parsed node's value
+     *
+     * @return PhelanLocator
      */
-    public function getStringFormat()
+    public function createLocator($nodeName, $value)
     {
-        return 'className='.$this->getValue();
+        switch(strtolower($nodeName)) {
+        case 'custom':
+            $loc = new PhelanCustomLocator($nodeName, $value);
+            return $loc;
+        default:
+            return null;
+        }
 
-    }//end getStringFormat()
+    }//end createLocator()
 
 
 }//end class

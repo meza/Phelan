@@ -97,87 +97,87 @@ class PhelanTest extends MockAmendingTestCaseBase
     public function testProvider()
     {
         return array(
-            array(
-             'elementName' => 'unexistingelement',
-             'locatorType' => null,
-             'expected'    => false,
-            ),
-            array(
-             'elementName' => 'aNamedDiv',
-             'locatorType' => null,
-             'expected'    => 'id=aNamedDivsID',
-            ),
-            array(
-             'elementName' => 'aNamedDiv',
-             'locatorType' => Phelan::LOCATOR_ID,
-             'expected'    => 'id=aNamedDivsID',
-            ),
-            array(
-             'elementName' => 'aNamedDiv',
-             'locatorType' => 'idx',
-             'expected'    => false,
-            ),
-            array(
-             'elementName' => 'xpathDiv',
-             'locatorType' => null,
-             'expected'    => 'xpath=//td[text()=\'some text\']',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => null,
-             'expected'    => 'xpath=//div#all',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => Phelan::LOCATOR_XPATH,
-             'expected'    => 'xpath=//div#all',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => Phelan::LOCATOR_ID,
-             'expected'    => 'id=all',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => Phelan::LOCATOR_CLASSNAME,
-             'expected'    => 'className=allclass',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => Phelan::LOCATOR_LINK,
-             'expected'    => 'link=A link value',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => Phelan::LOCATOR_NAME,
-             'expected'    => 'name=aFormName',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => Phelan::LOCATOR_CSS,
-             'expected'    => 'css=div .class',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => 'unexisting',
-             'expected'    => 'text=some gibberish',
-            ),
-            array(
-             'elementName' => 'allDiv',
-             'locatorType' => 'unexisting locator',
-             'expected'    => false,
-            ),
-            array(
-             'elementName' => 'emptyElement',
-             'locatorType' => Phelan::LOCATOR_ID,
-             'expected'    => false,
-            ),
-            array(
-             'elementName' => 'emptyElement',
-             'locatorType' => null,
-             'expected'    => false,
-            ),
-        );
+                array(
+                 'elementName' => 'unexistingelement',
+                 'locatorType' => null,
+                 'expected'    => false,
+                ),
+                array(
+                 'elementName' => 'aNamedDiv',
+                 'locatorType' => null,
+                 'expected'    => 'id=aNamedDivsID',
+                ),
+                array(
+                 'elementName' => 'aNamedDiv',
+                 'locatorType' => Phelan::LOCATOR_ID,
+                 'expected'    => 'id=aNamedDivsID',
+                ),
+                array(
+                 'elementName' => 'aNamedDiv',
+                 'locatorType' => 'idx',
+                 'expected'    => false,
+                ),
+                array(
+                 'elementName' => 'xpathDiv',
+                 'locatorType' => null,
+                 'expected'    => 'xpath=//td[text()=\'some text\']',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => null,
+                 'expected'    => 'xpath=//div#all',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => Phelan::LOCATOR_XPATH,
+                 'expected'    => 'xpath=//div#all',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => Phelan::LOCATOR_ID,
+                 'expected'    => 'id=all',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => Phelan::LOCATOR_CLASSNAME,
+                 'expected'    => 'className=allclass',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => Phelan::LOCATOR_LINK,
+                 'expected'    => 'link=A link value',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => Phelan::LOCATOR_NAME,
+                 'expected'    => 'name=aFormName',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => Phelan::LOCATOR_CSS,
+                 'expected'    => 'css=div .class',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => 'custom',
+                 'expected'    => 'text=some gibberish',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => 'unexisting locator',
+                 'expected'    => false,
+                ),
+                array(
+                 'elementName' => 'emptyElement',
+                 'locatorType' => Phelan::LOCATOR_ID,
+                 'expected'    => false,
+                ),
+                array(
+                 'elementName' => 'emptyElement',
+                 'locatorType' => null,
+                 'expected'    => false,
+                ),
+               );
 
     }//end testProvider()
 
@@ -202,7 +202,6 @@ class PhelanTest extends MockAmendingTestCaseBase
         $locatorType,
         $expected
     ) {
-
         $locator = $this->testEndToEnd()->getLocator(
             $elementId,
             $locatorType
@@ -212,6 +211,7 @@ class PhelanTest extends MockAmendingTestCaseBase
         if (null !== $locator) {
             $actual = $locator->getStringFormat();
         }
+
         $this->assertEquals(
             $expected,
             $actual,
@@ -219,6 +219,55 @@ class PhelanTest extends MockAmendingTestCaseBase
         );
 
     }//end testGetLocator()
+
+
+    /**
+     * Provides input data to the getLocator's test
+     *
+     * @return array
+     */
+    public function decoratorProvider()
+    {
+        return array(
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => 'custom',
+                 'expected'    => 'customLocator=some gibberish',
+                ),
+                array(
+                 'elementName' => 'allDiv',
+                 'locatorType' => 'unexisting locator',
+                 'expected'    => false,
+                ),
+               );
+
+    }//end decoratorProvider()
+
+
+    /**
+     * Test the getLocator method.
+     *
+     * @param String $elementId   The id of the element to fetch
+     * @param String $locatorType The type of the locator to find
+     * @param String $expected    The expected locator
+     *
+     * @test
+     *
+     * @dataProvider decoratorProvider()
+     *
+     * @group endtoend
+     *
+     * @return void
+     */
+    public function testGetLocatorWithDecorator(
+        $elementId,
+        $locatorType,
+        $expected
+    ) {
+        $decorator    = new CustomLocatorFactory();
+        $this->object = new Phelan($decorator);
+        $this->testGetLocator($elementId, $locatorType, $expected);
+    }
 
 
 }//end class

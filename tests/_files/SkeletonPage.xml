@@ -25,7 +25,7 @@ url="http://example.com" path="examplepath">
                     <link>A link value</link>
                     <name>aFormName</name>
                     <css>div .class</css>
-                    <unexisting>some gibberish</unexisting>
+                    <custom>some gibberish</custom>
 				</Locators>
 			</WebElement>
             <WebElement name="emptyElement"/>

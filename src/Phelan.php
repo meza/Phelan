@@ -48,7 +48,7 @@ class Phelan
     const LOCATOR_TEXT      = 'text';
 
     /**
-     * @var PhelanLocatorFactory That will handle the locator creation
+     * @var PhelanBaseLocatorFactory That will handle the locator creation
      */
     private $_locatorFactory;
 
@@ -56,11 +56,14 @@ class Phelan
     /**
      * Constructs the object
      *
+     * @param PhelanLocatorFactory $customFactory A pluggable factory for
+     * custom locators.
+     *
      * @return Phelan
      */
-    public function __construct()
+    public function __construct(PhelanLocatorFactory $customFactory=null)
     {
-        $this->_locatorFactory = new PhelanLocatorFactory();
+        $this->_locatorFactory = new PhelanBaseLocatorFactory($customFactory);
 
     }//end __construct()
 

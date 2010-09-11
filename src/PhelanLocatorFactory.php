@@ -2,7 +2,7 @@
 /**
  * PhelanLocatorFactory.php
  *
- * Holds the PhelanLocatorFactory class
+ * Holds the PhelanLocatorFactory interface
  *
  * PHP Version: PHP 5
  *
@@ -20,7 +20,7 @@
  */
 
 /**
- * The PhelanLocatorFactory creates the locators.
+ * The PhelanLocatorFactory interface
  *
  * PHP Version: PHP 5
  *
@@ -36,7 +36,7 @@
  * of this license document, but changing it is not allowed.
  * @link     http://www.meza.hu
  */
-class PhelanLocatorFactory
+interface PhelanLocatorFactory
 {
 
 
@@ -48,28 +48,9 @@ class PhelanLocatorFactory
      *
      * @return PhelanClassLocator
      */
-    public function createLocator($nodeName, $value)
-    {
-        switch(strtolower($nodeName)) {
-        case Phelan::LOCATOR_CLASSNAME:
-            $loc = new PhelanClassLocator('class', $value);
-            return $loc;
-        case Phelan::LOCATOR_CSS:
-        case Phelan::LOCATOR_ID:
-        case Phelan::LOCATOR_LINK:
-        case Phelan::LOCATOR_NAME:
-        case Phelan::LOCATOR_TEXT:
-        case Phelan::LOCATOR_XPATH:
-            $loc = new PhelanLocator($nodeName, $value);
-            return $loc;
-        default:
-            $loc = new PhelanTextLocator($nodeName, $value);
-            return $loc;
-        }
-
-    }//end createLocator()
+    public function createLocator($nodeName, $value);
 
 
-}//end class
+}//end interface
 
 ?>

@@ -1,8 +1,8 @@
 <?php
 /**
- * PhelanClassLocator.php
+ * PhelanCustomLocator.php
  *
- * Holds the PhelanClassLocator class
+ * Holds the PhelanCustomLocator class
  *
  * PHP Version: PHP 5
  *
@@ -20,7 +20,7 @@
  */
 
 /**
- * The PhelanClassLocator handles class locators
+ * The PhelanCustomLocator handles unexisting locators
  *
  * PHP Version: PHP 5
  *
@@ -36,7 +36,7 @@
  * of this license document, but changing it is not allowed.
  * @link     http://www.meza.hu
  */
-class PhelanClassLocator extends PhelanLocator
+class PhelanCustomLocator extends PhelanLocator
 {
 
 
@@ -47,7 +47,7 @@ class PhelanClassLocator extends PhelanLocator
      */
     public function getStringFormat()
     {
-        return 'className='.$this->getValue();
+        return 'customLocator='.$this->getValue();
 
     }//end getStringFormat()
 

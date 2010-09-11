@@ -1,8 +1,8 @@
 <?php
 /**
- * PhelanLocator.php
+ * PhelanTextLocator.php
  *
- * Holds the PhelanLocator class
+ * Holds the PhelanTextLocator class
  *
  * PHP Version: PHP 5
  *
@@ -20,7 +20,7 @@
  */
 
 /**
- * The PhelanLocator class is the parent of all locators
+ * The PhelanTextLocator handles text locators
  *
  * PHP Version: PHP 5
  *

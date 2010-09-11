@@ -34,6 +34,7 @@ Initial release
  <contents>
   <dir baseinstalldir="Phelan" name="/">
     <file name="Phelan.php" role="php"/>
+    <file name="PhelanBaseLocatorFactory.php" role="php"/>
     <file name="PhelanClassLocator.php" role="php"/>
     <file name="PhelanLocator.php" role="php"/>
     <file name="PhelanLocatorCollection.php" role="php"/>
