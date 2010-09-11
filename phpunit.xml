@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : phpunit.xml
+    Created on : April 8, 2010, 4:58 PM
+    Author     : fqqdk <fqqdk@ustream.tv>
+    Description:
+        phpunit master configuration file. this file is used by the integration
+		build.
+-->
+
+<phpunit
+	colors="true"
+	syntaxCheck="false"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnFailure="false"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	bootstrap="tests/config/bootstrap.php"
+	>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">src</directory>
+		</whitelist>
+	</filter>
+
+	<logging>
+		<log type="coverage-html" target="build/unittest/coverage" charset="UTF-8"
+			yui="true" highlight="false" lowUpperBound="35" highLowerBound="70"/>
+		<log type="coverage-clover" target="build/unittest/coverage/clover.xml" />
+		<log type="junit" target="build/unittest/logfile.xml" logIncompleteSkipped="false"/>
+		<log type="testdox-html" target="build/unittest/testdox.html"/>
+		<log type="testdox-text" target="build/unittest/testdox.txt"/>
+	</logging>
+
+	<php>
+		<ini name="display_errors"   value="32767" />
+	</php>
+</phpunit>

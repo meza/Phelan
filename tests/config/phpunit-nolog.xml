@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : phpunit.xml
+    Created on : April 8, 2010, 4:58 PM
+    Author     : fqqdk <fqqdk@ustream.tv>
+    Description:
+        phpunit master configuration file. this file is used by the integration
+		build.
+-->
+
+<phpunit
+	colors="true"
+	syntaxCheck="false"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnFailure="false"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	bootstrap="tests/config/bootstrap.php"
+	>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">src</directory>
+		</whitelist>
+	</filter>
+
+	<php>
+		<ini name="display_errors"   value="32767" />
+	</php>
+</phpunit>
