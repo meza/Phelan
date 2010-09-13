@@ -18,6 +18,7 @@
  * of this license document, but changing it is not allowed.
  * @link     http://www.meza.hu
  */
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanPageBase.php';
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanLocator.php';
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanLocatorFactory.php';
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanBaseLocatorFactory.php';

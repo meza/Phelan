@@ -40,6 +40,7 @@ Initial release
     <file name="PhelanLocatorCollection.php" role="php"/>
     <file name="PhelanLocatorFactory.php" role="php"/>
     <file name="PhelanPage.php" role="php"/>
+    <file name="PhelanPageBase.php" role="php"/>
     <file name="PhelanPageElement.php" role="php"/>
     <file name="PhelanPageElementCollection.php" role="php"/>
     <file name="PhelanTextLocator.php" role="php"/>
