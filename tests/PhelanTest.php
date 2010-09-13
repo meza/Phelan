@@ -267,7 +267,41 @@ class PhelanTest extends MockAmendingTestCaseBase
         $decorator    = new CustomLocatorFactory();
         $this->object = new Phelan($decorator);
         $this->testGetLocator($elementId, $locatorType, $expected);
-    }
+
+    }//end testGetLocatorWithDecorator()
+
+
+    /**
+     * We need to test that the page object can return the
+     * url and path set.
+     *
+     * @test
+     *
+     * @group endtoend
+     *
+     * @return void
+     */
+    public function testGetUrlData()
+    {
+        $page         = $this->testEndToEnd();
+        $expectedUrl  = 'http://example.com';
+        $expectedPath = 'examplepath';
+
+        $actualUrl  = $page->getUrl();
+        $actualPath = $page->getPath();
+
+        $this->assertEquals(
+            $expectedUrl,
+            $actualUrl,
+            'The returned url does not match the expected'
+        );
+        $this->assertEquals(
+            $expectedPath,
+            $actualPath,
+            'The returned path does not match the expected'
+        );
+
+    }//end testGetUrlData()
 
 
 }//end class

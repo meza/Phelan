@@ -98,6 +98,30 @@ class PhelanPage
     }//end getLocator()
 
 
+    /**
+     * Return the page url
+     *
+     * @return String
+     */
+    public function getUrl()
+    {
+        return $this->_url;
+
+    }//end getUrl()
+
+
+    /**
+     * Return the page path
+     *
+     * @return String
+     */
+    public function getPath()
+    {
+        return $this->_path;
+
+    }//end getPath()
+
+
 }//end class
 
 ?>
