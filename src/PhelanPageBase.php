@@ -93,6 +93,21 @@ abstract class PhelanPageBase
 
 
     /**
+     * Open the page
+     *
+     * @return the url
+     */
+    public function open()
+    {
+        $fullUrl = $this->getUrl().'/'.$this->getPath();
+        $this->getSelenium()->open($fullUrl);
+
+        return $fullUrl;
+
+    }//end open()
+
+
+    /**
      * Return the page's url
      *
      * @return string
