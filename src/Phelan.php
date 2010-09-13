@@ -18,7 +18,15 @@
  * of this license document, but changing it is not allowed.
  * @link     http://www.meza.hu
  */
-
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanLocator.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanLocatorFactory.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanBaseLocatorFactory.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanClassLocator.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanLocatorCollection.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanPage.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanPageElement.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanPageElementCollection.php';
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'PhelanTextLocator.php';
 /**
  * The Phelan class parses the Selena uixml config
  *
