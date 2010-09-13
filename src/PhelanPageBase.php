@@ -116,6 +116,34 @@ abstract class PhelanPageBase
     }//end getPath()
 
 
+    /**
+     * Get a locator of the page while validating it's existence
+     *
+     * @param string $name The id of the element
+     * @param string $type The type of the element
+     *
+     * @return string The locator of the element
+     */
+    public function getLocator($name, $type=null)
+    {
+        $locator  = $this->getPage()->getLocator($name, $type);
+        $selenium = $this->getSelenium();
+
+        $selenium->assertNotNull(
+            $locator,
+            'The received locator is null for element: '.$name
+        );
+        $locString = $locator->getStringFormat();
+        $selenium->assertTrue(
+            $selenium->isElementPresent($locString),
+            'Element "'.$name.'" with locator: "'.$locString.'" was not found'
+        );
+
+        return $locString;
+
+    }//end getLocator()
+
+
 }//end class
 
 ?>
