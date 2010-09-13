@@ -147,8 +147,8 @@ class Phelan
     private function _createPage(SimpleXMLElement $page)
     {
         $atts = $page->attributes();
-        $url  = (string) $atts['url'];
-        $path = (string) $atts['path'];
+        $url  = rtrim((string) $atts['url'],'/\\');
+        $path = trim((string) $atts['path'], '/\\');
 
         $pageObject = new PhelanPage($url, $path);
         return $pageObject;

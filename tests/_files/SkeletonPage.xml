@@ -2,7 +2,7 @@
 <Page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:fo="http://www.w3.org/1999/XSL/Format"
 xsi:noNamespaceSchemaLocation="http://github.com/meza/Selena/raw/master/skeleton/config/uixmls/SelenaPage.xsd"
-url="http://example.com" path="examplepath">
+url="http://example.com/" path="/examplepath\">
 	<Elements>
 		<Group name="group1">
 			<WebElement name="aNamedDiv">
