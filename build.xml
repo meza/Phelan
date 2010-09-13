@@ -68,11 +68,6 @@
 
 <!-- Clean and prepare the first build -->
     <target name="init" depends="clean">
-        <propertyfile file="version.properties">
-            <entry key="version.major" default="0" type="int"/>
-            <entry key="version.minor" default="0" type="int"/>
-            <entry key="version.state" default="alpha" type="string"/>
-        </propertyfile>
         <pear>
             <arg line="config-set auto_discover 1"/>
         </pear>
